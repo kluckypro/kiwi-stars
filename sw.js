@@ -1,6 +1,6 @@
 /* KIWI STARS — офлайн-работа приложения. При обновлении сайта увеличьте номер версии. */
-const VERSION = 'kiwi-stars-v2';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './favicon.ico', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
+const VERSION = 'kiwi-stars-v3';
+const SHELL = ['./', './index.html', './manifest.webmanifest', './favicon.ico', './favicon-32.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)));

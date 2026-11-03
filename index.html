@@ -6,9 +6,10 @@
 <title>KIWI STARS</title>
 <meta name="description" content="Расписание залов школы танцев KIWI: Типанова, Сестрорецк, Шушары">
 <meta name="theme-color" content="#294A35">
-<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -61,7 +62,8 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:6px}
 [hidden]{display:none!important}
 .wrap{max-width:1360px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.tnum{font-variant-numeric:tabular-nums}
+.tnum{font-variant-numeric:tabular-nums lining-nums}
+body,.serif,h1,h2,h3{font-variant-numeric:lining-nums}
 .serif{font-family:var(--f-display)}
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -395,7 +397,7 @@ a.btn{text-decoration:none}
 .heat i.o{opacity:.25}
 .heat i.x{background:repeating-linear-gradient(135deg,var(--hatch) 0 3px,transparent 3px 6px),var(--milk)}
 .bl{display:flex;flex-direction:column;gap:8px}
-.bl div{display:grid;grid-template-columns:100px 1fr 44px;gap:10px;align-items:center;font-size:13px}
+.bl div{display:grid;grid-template-columns:140px 1fr 44px;gap:10px;align-items:center;font-size:13px}
 .bl u{text-decoration:none;height:6px;border-radius:3px;background:var(--line-soft);overflow:hidden}
 .bl u i{display:block;height:100%;background:var(--green)}
 .bl b{text-align:right}
@@ -744,7 +746,7 @@ window.addEventListener("appinstalled",function(){deferredInstall=null;$$('[data
 function doInstall(){
   if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.then(function(){deferredInstall=null;$$('[data-act="install"]').forEach(function(b){b.hidden=true;});});return;}
   openModal("Установить на телефон","Расписание будет открываться с экрана «Домой», как обычное приложение",
-   '<div class="lmark"><img src="icons/icon-192.png" width="96" height="96" alt="" style="border-radius:24px;box-shadow:0 14px 30px -12px rgba(41,74,53,.5)"></div>'+
+   '<div class="lmark"><img src="icon-192.png" width="96" height="96" alt="" style="border-radius:24px;box-shadow:0 14px 30px -12px rgba(41,74,53,.5)"></div>'+
    '<ol class="steps"><li>Откройте сайт в <b>Safari</b>.</li><li>Нажмите кнопку <b>«Поделиться»</b> (квадрат со стрелкой вверх).</li><li>Выберите <b>«На экран „Домой“»</b> и нажмите <b>«Добавить»</b>.</li></ol>'+
    '<div class="acts"><span class="sp"></span><button class="btn primary" data-close>Понятно</button></div>');
 }
