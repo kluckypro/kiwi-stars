@@ -1,5 +1,5 @@
-/* KIWI STARS — офлайн-работа приложения. При обновлении сайта увеличьте номер версии. */
-const VERSION = 'kiwi-stars-v3';
+/* KIWI — офлайн-работа приложения. При обновлении сайта увеличьте номер версии. */
+const VERSION = 'kiwi-v4';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './favicon.ico', './favicon-32.png', './apple-touch-icon.png', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {

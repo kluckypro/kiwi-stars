@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>KIWI STARS</title>
+<title>KIWI — расписание залов</title>
 <meta name="description" content="Расписание залов школы танцев KIWI: Типанова, Сестрорецк, Шушары">
 <meta name="theme-color" content="#294A35">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -13,7 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="KIWI STARS">
+<meta name="apple-mobile-web-app-title" content="KIWI">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script>
   /* Адрес сервера: вставьте между кавычками URL веб-приложения Google Apps Script (заканчивается на /exec). */
@@ -435,6 +435,33 @@ a.btn{text-decoration:none}
 .lmark svg{border-radius:50%;box-shadow:0 12px 30px -12px rgba(41,74,53,.5)}
 .steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.5}
 .steps b{color:var(--deep)}
+
+/* VK */
+.vkpill{color:#0077FF;border-color:color-mix(in srgb,#0077FF 30%,var(--line))}
+.vkpill:hover{border-color:#0077FF}
+.vkpill svg,.fvk svg{width:18px;height:18px}
+.vkcard{display:flex;align-items:center;gap:18px;margin:0 0 48px;padding:20px 24px;border-radius:20px;text-decoration:none;color:var(--ink);background:linear-gradient(110deg,color-mix(in srgb,#0077FF 9%,var(--surface)),var(--surface) 70%);border:1px solid color-mix(in srgb,#0077FF 22%,var(--line));box-shadow:var(--sh-1);transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
+.vkcard:hover{transform:translateY(-2px);box-shadow:var(--sh-2);border-color:#0077FF}
+.vkcard-ic svg{width:54px;height:54px;display:block;filter:drop-shadow(0 8px 14px rgba(0,119,255,.28))}
+.vkcard-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.vkcard-t b{font-family:var(--f-display);font-size:28px;font-weight:600;line-height:1.1;color:var(--deep)}
+.vkcard-t span{font-size:14px;color:var(--muted)}
+.vkcard-go{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 18px;border-radius:12px;background:#0077FF;color:#fff;font-weight:700;font-size:14px;white-space:nowrap}
+.vkcard-go svg{width:16px;height:16px}
+.fcontact{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.fvk{display:inline-flex;align-items:center;gap:8px;color:var(--bg);text-decoration:none;font-weight:700;font-size:14px;opacity:.9}
+.fvk:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+.savest{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;background:color-mix(in srgb,var(--bg) 14%,transparent)}
+.savest .spin{width:12px;height:12px;border-width:2px;border-color:color-mix(in srgb,var(--bg) 35%,transparent);border-top-color:var(--bg)}
+.savest[data-s="error"]{background:#E2483A;color:#fff}
+@media (max-width:640px){
+  .vkcard{flex-wrap:wrap;gap:12px 14px;padding:16px;margin-bottom:28px}
+  .vkcard-ic svg{width:44px;height:44px}
+  .vkcard-t{flex:1 1 calc(100% - 60px)}
+  .vkcard-t b{font-size:23px}
+  .vkcard-go{width:100%;justify-content:center}
+  .savest{margin-left:6px}
+}
 /* ---------- responsive ---------- */
 @media (max-width:1180px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{grid-template-columns:1fr}footer .wrap{grid-template-columns:1fr}}
 @media (max-width:980px){.top-in{flex-wrap:wrap;gap:10px 14px;padding-block:12px}.tabs{order:3;width:100%}.tabs button{flex:1;justify-content:center}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.abar{top:0;position:relative}.top{position:relative}}
@@ -526,6 +553,7 @@ var monthEnd=function(s){var d=parseISO(monthStart(s));d.setMonth(d.getMonth()+1
 var hrs=function(m){var r=Math.round(m/6)/10;return String(r).replace(".",",");};
 var plural=function(n,a,b,c){var m=n%10,h=n%100;return (m===1&&h!==11)?a:(m>=2&&m<=4&&(h<10||h>=20))?b:c;};
 var DAY_S=600,DAY_E=1320,HH=56;
+var VK_URL="https://vk.ru/kiwi_dancee";
 var PALETTE=["#6D9360","#C9895E","#7B93C4","#B97A9E","#4E9A95","#C4A13A","#8C7BB5","#A86B6B"];
 var ss={get:function(k){try{return sessionStorage.getItem(k);}catch(e){return null;}},set:function(k,v){try{sessionStorage.setItem(k,v);}catch(e){}},del:function(k){try{sessionStorage.removeItem(k);}catch(e){}}};
 var ls={get:function(k){try{return localStorage.getItem(k);}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,v);}catch(e){}}};
@@ -544,6 +572,7 @@ var ICON={
  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>',
  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6.5 4h3l1.5 4-2 1.3a10 10 0 0 0 5.7 5.7L16 13l4 1.5v3A2.5 2.5 0 0 1 17.5 20 14.5 14.5 0 0 1 4 6.5 2.5 2.5 0 0 1 6.5 4z"/></svg>',
  tiles:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>',
+ vk:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="1" width="22" height="22" rx="6.5" fill="#0077FF"/><path fill="#fff" d="M12.8 16.6c-4.5 0-7.1-3.1-7.2-8.3h2.3c.1 3.8 1.7 5.4 3 5.7V8.3h2.1v3.3c1.3-.1 2.6-1.6 3.1-3.3h2.1c-.4 2-1.8 3.5-2.9 4.1 1.1.5 2.7 1.8 3.4 4.2h-2.3c-.5-1.6-1.8-2.8-3.4-3v3h-.2z"/></svg>',
  app:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M12 7v7M9 11.5l3 3 3-3"/></svg>',
  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16M9 3v18"/></svg>'
 };
@@ -691,23 +720,53 @@ function toast(msg,kind){var box=$(".toasts");if(!box){box=document.createElemen
   var t=document.createElement("div");t.className="toast"+(kind==="error"?" err":"");t.textContent=msg;box.appendChild(t);setTimeout(function(){t.remove();},kind==="error"?6500:3200);}
 function setBusy(on,label){busy=on;var b=$(".busy");if(on){if(!b){b=document.createElement("div");b.className="busy";b.innerHTML='<div><span class="spin"></span><span></span></div>';document.body.appendChild(b);}$("span:last-child",b).textContent=label||"Сохраняем…";}else if(b)b.remove();}
 
-/* ================= saving ================= */
+/* ================= saving =================
+   Изменение сразу показывается на экране, а на сервер уходит в фоне.
+   Запросы выстраиваются в очередь, чтобы не мешать друг другу. */
+var saveQ=Promise.resolve(),pending=0,confirmed=null,saveFailed=false;
+function applyLocal(st,changes,meta){
+  (changes||[]).forEach(function(ch){var arr=st[ch.kind==="event"?"events":ch.kind==="closure"?"closures":"series"];var i=-1;arr.forEach(function(x,j){if(x.id===ch.id)i=j;});
+    if(ch.after){if(i>=0)arr[i]=clone(ch.after);else arr.push(clone(ch.after));}else if(i>=0)arr.splice(i,1);});
+  if(meta){if(meta.categories)st.categories=clone(meta.categories);if(meta.branches)st.branches=clone(meta.branches);if(meta.settings)st.settings=clone(meta.settings);}
+  return norm(st);
+}
+function setSaveState(state){var el=$("#savest");if(!el)return;el.dataset.s=state;
+  el.innerHTML=state==="saving"?'<span class="spin"></span>Сохраняется…':state==="error"?'Не сохранено':'✓ Сохранено';}
 function apply(label,changes,opts){
   opts=opts||{};
-  if(busy)return Promise.resolve(false);
   if(!UI.admin||!UI.token){toast("Изменять расписание может только администратор.","error");return Promise.resolve(false);}
-  setBusy(true);
-  return API.apply(UI.token,{baseRev:S.rev,label:label,changes:changes||[],meta:opts.meta||null,notes:opts.notes||null}).then(function(r){
-    S=norm(r.state);remember();setBusy(false);closeModal();render();if(UI.drawer)loadHist(true);toast(opts.toast||"Сохранено");return true;
-  }).catch(function(e){
-    setBusy(false);
-    if(e&&e.code==="conflict"){if(e.state)S=norm(e.state);render();toast("Расписание только что изменили с другого устройства. Проверьте данные и повторите.","error");}
-    else if(e&&e.code==="auth"){endSession();toast("Сессия администратора истекла. Войдите снова.","error");}
-    else if(e&&e.code==="invalid"){var m=$("#f-msg")||$("#c-msg");if(m)showMsg(m,"err",e.message);else toast(e.message,"error");}
-    else toast("Не удалось сохранить: "+((e&&e.message)||"нет связи с сервером")+". Повторите попытку.","error");
+  if(!pending)confirmed=clone(S);
+  var payload={label:label,changes:changes||[],meta:opts.meta||null,notes:opts.notes&&opts.notes.length?opts.notes:null};
+  S=applyLocal(clone(S),payload.changes,payload.meta);
+  closeModal();render();toast(opts.toast||"Сохранено");
+  pending++;setSaveState("saving");
+  var send=function(retry){
+    payload.baseRev=confirmed.rev;
+    return API.apply(UI.token,payload).then(function(r){confirmed=norm(r.state);},function(e){
+      if(e&&e.code==="conflict"&&e.state&&!retry){confirmed=norm(e.state);return send(true);}
+      throw e;});
+  };
+  var job=saveQ.then(function(){return send(false);}).then(function(){return true;},function(e){
+    saveFailed=true;
+    if(e&&e.code==="auth"){UI.token=null;toast("Сессия администратора истекла — изменение не сохранено. Войдите снова.","error");}
+    else if(e&&e.code==="invalid")toast("Не сохранено: "+e.message,"error");
+    else toast("Не удалось сохранить «"+label+"»: "+((e&&e.message)||"нет связи с сервером")+". Изменение отменено, повторите.","error");
     return false;
+  }).then(function(ok){
+    pending--;
+    if(!pending){
+      var y=window.scrollY;S=clone(confirmed);remember();
+      if(!modalEl&&!drag.on){render();window.scrollTo(0,y);}
+      setSaveState(saveFailed?"error":"saved");saveFailed=false;
+      if(UI.drawer&&UI.tab==="hist")loadHist(true);
+      if(!UI.token)endSession();
+    }
+    return ok;
   });
+  saveQ=job;
+  return job;
 }
+window.addEventListener("beforeunload",function(e){if(pending){e.preventDefault();e.returnValue="";}});
 function commit(label,changes,opts){return apply(label,changes,opts);}
 
 /* ================= render ================= */
@@ -742,7 +801,7 @@ var isStandalone=function(){return (window.matchMedia&&matchMedia("(display-mode
 var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 function canInstall(){return !IS_GAS&&!isStandalone()&&location.protocol==="https:"&&(!!deferredInstall||isIOS);}
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferredInstall=e;$$('[data-act="install"]').forEach(function(b){b.hidden=false;});});
-window.addEventListener("appinstalled",function(){deferredInstall=null;$$('[data-act="install"]').forEach(function(b){b.hidden=true;});toast("KIWI STARS установлен на телефон");});
+window.addEventListener("appinstalled",function(){deferredInstall=null;$$('[data-act="install"]').forEach(function(b){b.hidden=true;});toast("KIWI установлен на телефон");});
 function doInstall(){
   if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.then(function(){deferredInstall=null;$$('[data-act="install"]').forEach(function(b){b.hidden=true;});});return;}
   openModal("Установить на телефон","Расписание будет открываться с экрана «Домой», как обычное приложение",
@@ -758,12 +817,12 @@ function render(){
   var tenants=S.categories.filter(function(c){return c.kind!=="kiwi";});
   var html=
   '<header class="top"><div class="wrap top-in">'+
-    '<a class="brand" href="#'+b.slug+'" aria-label="KIWI STARS">'+logo(48)+'<div><div class="wm">KIWI <span>STARS</span></div><div class="wm-sub">Расписание залов · школа танцев</div></div></a>'+
+    '<a class="brand" href="#'+b.slug+'" aria-label="KIWI — школа танцев">'+logo(48)+'<div><div class="wm">KIWI</div><div class="wm-sub">Школа танцев · расписание залов</div></div></a>'+
     '<nav class="tabs" role="tablist" aria-label="Филиалы"><span class="pill-ind"></span>'+S.branches.map(function(x){return '<button role="tab" data-branch="'+x.id+'" aria-selected="'+(x.id===b.id)+'">'+ICON.pin+'<span><b>'+esc(x.name)+'</b><small>'+esc(x.city)+'</small></span></button>';}).join("")+'</nav>'+
     '<div class="top-act"><button class="iconbtn" data-act="install" title="Установить на телефон" aria-label="Установить приложение"'+(canInstall()?'':' hidden')+'>'+ICON.app+'</button>'+
     (UI.admin?'':'<button class="iconbtn" data-act="login" title="Вход для администратора" aria-label="Вход для администратора">'+ICON.lock+'</button>')+'</div>'+
   '</div></header>'+
-  (UI.admin?'<div class="abar"><div class="wrap"><span class="who"><i></i>Администратор<small>· изменения сразу видят все'+(API.demo?' (демо-режим)':'')+'</small></span>'+
+  (UI.admin?'<div class="abar"><div class="wrap"><span class="who"><i></i>Администратор<small>· изменения сразу видят все'+(API.demo?' (демо-режим)':'')+'</small><span class="savest" id="savest" data-s="'+(pending?"saving":"saved")+'">'+(pending?'<span class="spin"></span>Сохраняется…':'✓ Сохранено')+'</span></span>'+
     '<button class="abtn solid" data-act="new">'+ICON.plus+'Запись</button>'+
     '<button class="abtn" data-act="closure">'+ICON.off+'<span class="lbl-m">Нерабочее время</span></button>'+
     '<button class="abtn" data-act="drawer">'+ICON.panel+'<span class="lbl-m">Панель</span></button>'+
@@ -771,7 +830,7 @@ function render(){
     '<button class="abtn" data-act="logout">'+ICON.exit+'<span class="lbl-m">Выйти</span></button></div></div>':'')+
   '<div class="wrap">'+
    '<section class="hero"><div class="hero-l"><div class="hero-logo">'+logo(104)+'</div><div class="hero-txt"><div class="eyebrow"><span class="here">Вы в филиале</span><span class="city"> · '+esc(b.city)+'</span></div><h1>'+esc(b.name)+'</h1>'+
-     '<div class="hero-meta"><span>'+ICON.pin+esc(b.address)+'</span><span>'+ICON.clock+'Зал работает 10:00–22:00</span><a class="phone tnum" href="'+telHref(S.settings.phone)+'" target="_top">'+ICON.phone+esc(S.settings.phone)+'</a></div></div></div>'+nowCard()+'</section>'+
+     '<div class="hero-meta"><span>'+ICON.pin+esc(b.address)+'</span><span>'+ICON.clock+'Зал работает 10:00–22:00</span><a class="phone tnum" href="'+telHref(S.settings.phone)+'" target="_top">'+ICON.phone+esc(S.settings.phone)+'</a><a class="phone vkpill" href="'+VK_URL+'" target="_blank" rel="noopener">'+ICON.vk+'ВКонтакте</a></div></div></div>'+nowCard()+'</section>'+
    '<section class="ctl" aria-label="Управление календарём">'+
     '<div class="row"><div class="datenav"><button class="btn icon" data-act="prev" aria-label="Назад">'+ICON.prev+'</button><button class="btn" data-act="today">Сегодня</button><button class="btn icon" data-act="next" aria-label="Вперёд">'+ICON.next+'</button><h2 class="rng tnum">'+rangeLabel()+'</h2></div>'+
      (UI.view!=="month"?'<div class="seg" role="group" aria-label="Вид"><button data-layout="tiles" aria-pressed="'+(UI.layout==="tiles")+'" title="Карточки">'+ICON.tiles+'<span class="lbl-m">Карточки</span></button><button data-layout="grid" aria-pressed="'+(UI.layout==="grid")+'" title="Сетка по времени">'+ICON.grid+'<span class="lbl-m">Сетка</span></button></div>':'')+
@@ -786,9 +845,10 @@ function render(){
     '<div class="legend hscroll">'+S.categories.map(function(c){return '<span style="--c:'+c.color+'"><i></i>'+esc(c.name)+'</span>';}).join("")+'<span class="lf"><i></i>Свободно</span><span class="lc"><i></i>Нерабочее время</span></div>'+
    '</section>'+
    '<main class="content" id="content"></main>'+
+   '<a class="vkcard" href="'+VK_URL+'" target="_blank" rel="noopener"><span class="vkcard-ic">'+ICON.vk+'</span><span class="vkcard-t"><b>Мы ВКонтакте</b><span>Новости школы, фото и видео с выступлений, набор в группы</span></span><span class="vkcard-go">Перейти в группу'+ICON.next+'</span></a>'+
   '</div>'+
-  '<footer><div class="wrap"><div class="fbrand">'+logo(68)+'<div class="fwm">KIWI STARS<small>Школа танцев KIWI</small></div></div><div class="addrs">'+S.branches.map(function(x){return '<div><b>'+esc(x.name)+'</b>'+esc(x.city)+', '+esc(x.address)+'</div>';}).join("")+'</div>'+
-   '<a class="ph tnum" href="'+telHref(S.settings.phone)+'" target="_top"><small>Аренда и запись</small>'+esc(S.settings.phone)+'</a></div></footer>'+
+  '<footer><div class="wrap"><div class="fbrand">'+logo(68)+'<div class="fwm">KIWI<small>Школа танцев · расписание залов</small></div></div><div class="addrs">'+S.branches.map(function(x){return '<div><b>'+esc(x.name)+'</b>'+esc(x.city)+', '+esc(x.address)+'</div>';}).join("")+'</div>'+
+   '<div class="fcontact"><a class="ph tnum" href="'+telHref(S.settings.phone)+'" target="_top"><small>Аренда и запись</small>'+esc(S.settings.phone)+'</a><a class="fvk" href="'+VK_URL+'" target="_blank" rel="noopener">'+ICON.vk+'vk.ru/kiwi_dancee</a></div></div></footer>'+
   (UI.admin?'<button class="fab" data-act="new" aria-label="Новая запись">'+ICON.plus+'</button>':'');
   $("#app").innerHTML=html;
   placeInd();renderContent();
@@ -989,7 +1049,8 @@ function openEntry(ctx){
    '</form>';
   var l=openModal(occ?"Редактирование":"Новая запись",occ?esc(fmtDL(occ.date))+" · "+esc(b.name)+", "+esc(hallName(occ.hall)):"Запись сразу появится в расписании "+esc(b.name),body);
   var msg=$("#f-msg",l),rep="none",ack=false,pendingScope=null;
-  if(occ){API.note(UI.token,occ.id).then(function(r){if(r&&r.text&&!$("#f-note",l).value)$("#f-note",l).value=r.text;}).catch(function(){});}
+  var noteOrig="";
+  if(occ){API.note(UI.token,occ.id).then(function(r){noteOrig=(r&&r.text)||"";if(noteOrig&&!$("#f-note",l).value)$("#f-note",l).value=noteOrig;}).catch(function(){});}
   var wdTouched=false;
   var syncWd=function(){if(wdTouched)return;var d=$("#f-date",l).value;if(!/^\d{4}-\d{2}-\d{2}$/.test(d))return;var w=wdOf(d);$$("[data-wd]",l).forEach(function(x){x.setAttribute("aria-pressed",+x.dataset.wd===w);});};
   $("#ef",l).addEventListener("input",function(e){ack=false;$("#f-save",l).textContent="Сохранить";if(e.target.id==="f-date")syncWd();});
@@ -1040,6 +1101,7 @@ function openEntry(ctx){
     if(cf.length){hideScope();return showMsg(msg,"err",conflictText(cf));}
     var outside=cands.some(function(c){return c.s<DAY_S||c.e>DAY_E;});
     if(outside&&!ack){ack=true;pendingScope=scope;hideScope();$("#f-save",l).textContent="Сохранить всё равно";return showMsg(msg,"warn","Запись выходит за рабочее время зала 10:00–22:00. Если всё верно, нажмите «Сохранить всё равно».");}
+    notes=notes.filter(function(n){return occ&&n.id===occ.id?x.note!==noteOrig:!!n.text;});
     commit(label,changes,{notes:notes,toast:"Запись сохранена"});
   }
   function showScope(){var sc=$("#f-scope",l);sc.innerHTML='<p>Это занятие повторяется. Что изменить?</p><div class="row"><button type="button" class="btn sm primary" data-scope="one">Только это занятие</button><button type="button" class="btn sm" data-scope="following">Это и следующие</button><button type="button" class="btn sm" data-scope="all">Всю серию</button><button type="button" class="btn sm ghost" data-scope="">Отмена</button></div>';sc.hidden=false;$("#f-acts",l).hidden=true;
@@ -1268,7 +1330,7 @@ document.addEventListener("pointerup",function(){if(!drag.on)return;drag.on=fals
 
 /* live updates: check for a new version every 30 s */
 function poll(){
-  if(document.hidden||busy||modalEl||drag.on)return;
+  if(document.hidden||busy||pending||modalEl||drag.on)return;
   API.rev().then(function(r){if(r&&r.rev>S.rev)return API.state().then(function(x){var y=window.scrollY;S=norm(x.state);remember();render();window.scrollTo(0,y);});}).catch(function(){});
 }
 setInterval(poll,45000);
